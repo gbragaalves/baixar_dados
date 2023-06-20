@@ -9,7 +9,7 @@ pacman::p_load(lubridate, glue, basedosdados, stringr)
 ### Define a data inicial para download de dados de viagens. Há dados
 ### disponíveis desde 01 de junho de 2022.
 
-dia_inicio <- "2023-06-01"
+dia_inicio <- as_date("2023-06-01")
 
 ### Define se será feito o download de dados para um período específico ou
 ### se serão baixados todos os dados disponíveis desde o dia_inicio até a data
@@ -19,7 +19,7 @@ dia_inicio <- "2023-06-01"
 definir_dia_fim <- FALSE
 
 if (definir_dia_fim) {
-  dia_fim <- "2022-06-30"
+  dia_fim <- as_date("2022-06-30")
 } else {
   dia_fim <- Sys.Date() - 1
 }
@@ -29,6 +29,9 @@ basedosdados::set_billing_id("rj-smtr")
 dia <- dia_inicio
 
 for (dia in seq(dia_inicio, dia_fim, by = "day")) {
+  
+  dia <- as_date(dia)
+  
   print(dia)
 
   end_trip <-
